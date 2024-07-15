@@ -8,12 +8,16 @@
     transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
   
+
 body {
     margin: 40px 0;
     font-family: "Raleway";
     font-size: 14px;
     font-weight: 500;
-    background-color: #000;
+    background-image: url(../img/cyber-3728141_1280.jpg); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -200,3 +204,4 @@ h1 + p, p + p {
 .twitter-btn:hover {
     background-color: #000;
 }
+
