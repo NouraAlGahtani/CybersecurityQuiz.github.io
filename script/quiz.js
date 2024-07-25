@@ -56,6 +56,7 @@ var genQuestion = function(x){
 	questionsPage.append('<input type="radio" name="tv1" value="2">' + x.answerOptions[2] + '<br/>');
 	questionsPage.append('<input type="radio" name="tv1" value="3">' + x.answerOptions[3] + '<br/>');
 	questionsPage.append('</form>');
+	questionsPage.append('<div class="feedback"></div>');
 	questionsPage.append('<button>next</button>');
 }
 
@@ -71,26 +72,28 @@ function showScore(){
 //checking answer
 function checkAnswer(x){
 	var finalAnswer = $('input:checked').val();
-	if(nextPage == 5 && finalAnswer == x.answer){
+	var feedback = $('.page:visible .feedback');
+
+	if(finalAnswer == x.answer){
+		feedback.html('<p style="color: green;">Correct!</p>');
 		count++;
-		$('#questions').hide();
-		$('#finish').show();
-		showScore();
-	} else if(nextPage == 5){
-		$('#questions').hide();
-		$('#finish').show();
-		showScore();
-	} else if(finalAnswer == x.answer){
-		count++;
-		nextPage++;
-		$('.page').hide();
-		$('#finish').hide();
-		$('#page-' + nextPage).show();
+	} else {
+		feedback.html('<p style="color: red;">Wrong! The correct answer is: ' + x.answerOptions[x.answer] + '</p>');
+	}
+
+	if(nextPage == 5){
+		setTimeout(function(){
+			$('#questions').hide();
+			$('#finish').show();
+			showScore();
+		}, 2000); // Delay to show feedback before moving to results
 	} else {
 		nextPage++;
-		$('.page').hide();
-		$('#finish').hide();
-		$('#page-' + nextPage).show();
+		setTimeout(function(){
+			$('.page').hide();
+			$('#finish').hide();
+			$('#page-' + nextPage).show();
+		}, 2000); // Delay to show feedback before moving to next question
 	}
 }
 

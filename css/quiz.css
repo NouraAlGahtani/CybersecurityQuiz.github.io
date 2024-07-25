@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
+
+body {
+    background-image: radial-gradient(
+        circle at 20% 100%,
+        rgba(184, 184, 184, 0.2) 0%,
+        rgba(184, 184, 184, 0.2) 33%,
+        rgba(96, 96, 96, 0.2) 33%,
+        rgba(96, 96, 96, 0.2) 66%,
+        rgba(7, 7, 7, 0.2) 66%,
+        rgba(7, 7, 7, 0.2) 99%
+      ),
+      linear-gradient(40deg, #4d4d4d, #808080, #bfbfbf, #e6e6e6);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
 .some-class {
     transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -7,22 +26,9 @@
 .another-class {
     transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
-  
 
-body {
-    background-image: radial-gradient(
-        circle at 20% 100%,
-        rgba(184, 184, 184, 0.1) 0%,
-        rgba(184, 184, 184, 0.1) 33%,
-        rgba(96, 96, 96, 0.1) 33%,
-        rgba(96, 96, 96, 0.1) 66%,
-        rgba(7, 7, 7, 0.1) 66%,
-        rgba(7, 7, 7, 0.1) 99%
-      ),
-      linear-gradient(40deg, #040a22, #162561, #202e64, #6f7aa6);
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+
+
 
 .title {
     font-family: "Raleway";
@@ -150,61 +156,96 @@ h1 + p, p + p {
     text-shadow: rgba(0, 0, 0, 0.5) 0 10px 10px;
 }
 
-/*  sm btn styles  */
-.twitter-btn {
+/* Small buttons styles */
+.twitter-btn, .in-btn {
     position: fixed;
-    margin: auto;
     bottom: 0;
     background-color: #1da1f2;
     border: 0.15em solid #1da1f2;
-    border-left: none;
-    border-bottom: none;
-    border-radius: 0% 100% 0% 0% / 0% 100% 0% 93%;
+    border-radius: 50%;
     height: 50px;
     width: 50px;
     cursor: pointer;
+}
+
+.twitter-btn {
+    left: 0;
 }
 
 .in-btn {
-    position: fixed;
-    margin: auto;
-    bottom: 0;
     right: 0;
-    border: 0.15em solid #0072b1;
-    border-right: none;
-    border-bottom: none;
-    border-radius: 100% 0% 0% 0% / 100% 0% 0% 0%;
     background-color: #0072b1;
-    height: 50px;
-    width: 50px;
-    cursor: pointer;
+    border-color: #0072b1;
 }
 
-.fa-twitter {
-    position: absolute;
-    left: 0em;
-    right: .4em;
-    top: .5em;
-    bottom: 0;
+.twitter-btn:hover, .in-btn:hover {
+    background-color: #0fc1fc;
+}
+
+.twitter-btn .fa-twitter, .in-btn .fa-linkedin-in {
     color: #fff;
     font-size: 1.8em;
-}
-
-.fa-linkedin-in {
     position: absolute;
-    left: .4em;
-    right: 0em;
-    top: .55em;
-    bottom: 0;
-    color: #fff;
-    font-size: 1.8em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.in-btn:hover {
-    background-color: #000;
+.navbar {
+    width: 100%;
+    height: 75px;
+    
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
 }
 
-.twitter-btn:hover {
-    background-color: #000;
+.icon {
+    width: 200px;
+    float: left;
+    height: 70px;
 }
 
+.logo {
+    color: #ffffff;
+    font-size: 35px;
+    font-family: Arial;
+    padding-left: 20px;
+    float: left;
+    padding-top: 10px;
+    margin-top: 5px;
+}
+
+.menu {
+    margin-left: 100px; 
+    height: 10px;
+    width: auto;
+    float: left;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    list-style: none;
+    margin-left: 30px; 
+    font-size: 14px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Arial;
+    font-weight: bold;
+    transition: 0.4s ease-in-out;
+}
+
+ul li a:hover {
+    color: #b5b3b3;
+}
