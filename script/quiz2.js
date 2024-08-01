@@ -1,41 +1,41 @@
 // Defining questions
 var question1 = new question({
-	charName: "1. What is the main goal of ethical hacking?",
-	answerOptions: ["To cause disruption and damage", "To identify and fix security vulnerabilities", "To steal sensitive information", "To showcase hacking skills"],
-	answer: 1,
+	charName: "1. What is the primary goal of ethical hacking?",
+	answerOptions: ["To cause harm to systems", "To steal sensitive information", "To identify and fix security vulnerabilities", "To create malware"],
+	answer: 2,
 	pageNumber: "page-1"
 });
 
 var question2 = new question({
-	charName: "2. Which type of hacker has legal permission to test the security of systems?",
-	answerOptions: ["Black hat hacker", "White hat hacker", "Grey hat hacker", "Script kiddie"],
-	answer: 1,
+	charName: "2. Which of the following is a common tool used in ethical hacking?",
+	answerOptions: ["Wireshark", "Microsoft Word", "Adobe Photoshop", "Google Chrome"],
+	answer: 0,
 	pageNumber: "page-2"
 });
 
 var question3 = new question({
-	charName: "3. What is a common technique used by ethical hackers to gain unauthorized access to systems?",
-	answerOptions: ["Phishing", "Data encryption", "Social engineering", "Cloud computing"],
-	answer: 2,
+	charName: "3. What does the acronym SQL stand for in the context of SQL injection attacks?",
+	answerOptions: ["Secure Query Language", "Structured Query Language", "Simple Query Language", "System Query Language"],
+	answer: 1,
 	pageNumber: "page-3"
 });
 
 var question4 = new question({
-	charName: "4. Which tool is commonly used for network scanning by ethical hackers?",
-	answerOptions: ["Wireshark", "Metasploit", "Nmap", "John the Ripper"],
-	answer: 2,
+	charName: "4. Which type of ethical hacking test involves the tester having no prior knowledge of the system?",
+	answerOptions: ["White-box testing", "Black-box testing", "Gray-box testing", "Red-box testing"],
+	answer: 1,
 	pageNumber: "page-4"
 });
 
 var question5 = new question({
-	charName: "5. What is a 'penetration test'?",
-	answerOptions: ["An attempt to steal data", "A method to disrupt services", "A test to evaluate the security of a system by simulating an attack", "A technique to encrypt data"],
-	answer: 2,
+	charName: "5. What is a common method used to gain unauthorized access to a system?",
+	answerOptions: ["Phishing", "Painting", "Cooking", "Driving"],
+	answer: 0,
 	pageNumber: "page-5"
 });
 
 // Defining prototype
-function question(option){
+function question(option) {
 	this.charName = option.charName;
 	this.answerOptions = option.answerOptions;
 	this.answer = option.answer;
@@ -43,7 +43,7 @@ function question(option){
 }
 
 // Questions HTML template
-var genQuestion = function(x){
+var genQuestion = function(x) {
 	var stage = $('#questions');
 	stage.append('<div id="' + x.pageNumber + '" class="page"></div>');
 
@@ -56,7 +56,8 @@ var genQuestion = function(x){
 	questionsPage.append('<input type="radio" name="tv1" value="2">' + x.answerOptions[2] + '<br/>');
 	questionsPage.append('<input type="radio" name="tv1" value="3">' + x.answerOptions[3] + '<br/>');
 	questionsPage.append('</form>');
-	questionsPage.append('<button>Next</button>');
+	questionsPage.append('<div class="feedback"></div>');
+	questionsPage.append('<button>next</button>');
 }
 
 // Variables
@@ -64,47 +65,49 @@ var count = 0;
 var nextPage = 1;
 
 // Calculate score
-function showScore(){
-	$('.score').append(count + " out of 5");
+function showScore() {
+	$('.score').text(count + " out of 5");
 }
 
 // Checking answer
-function checkAnswer(x){
+function checkAnswer(x) {
 	var finalAnswer = $('input:checked').val();
-	if(nextPage == 5 && finalAnswer == x.answer){
+	var feedback = $('.page:visible .feedback');
+
+	if (finalAnswer == x.answer) {
+		feedback.html('<p style="color: green;">Correct!</p>');
 		count++;
-		$('#questions').hide();
-		$('#finish').show();
-		showScore();
-	} else if(nextPage == 5){
-		$('#questions').hide();
-		$('#finish').show();
-		showScore();
-	} else if(finalAnswer == x.answer){
-		count++;
-		nextPage++;
-		$('.page').hide();
-		$('#finish').hide();
-		$('#page-' + nextPage).show();
+	} else {
+		feedback.html('<p style="color: red;">Wrong! The correct answer is: ' + x.answerOptions[x.answer] + '</p>');
+	}
+
+	if (nextPage == 5) {
+		setTimeout(function() {
+			$('#questions').hide();
+			$('#finish').show();
+			showScore();
+		}, 2000); // Delay to show feedback before moving to results
 	} else {
 		nextPage++;
-		$('.page').hide();
-		$('#finish').hide();
-		$('#page-' + nextPage).show();
+		setTimeout(function() {
+			$('.page').hide();
+			$('#finish').hide();
+			$('#page-' + nextPage).show();
+		}, 2000); // Delay to show feedback before moving to next question
 	}
 }
 
 // Create a new game and questions
-function newGame(){
-	var create1 = new genQuestion(question1);
-	var create2 = new genQuestion(question2);
-	var create3 = new genQuestion(question3);
-	var create4 = new genQuestion(question4);
-	var create5 = new genQuestion(question5);
+function newGame() {
+	genQuestion(question1);
+	genQuestion(question2);
+	genQuestion(question3);
+	genQuestion(question4);
+	genQuestion(question5);
 }
 
 // Restart game
-function restart(){
+function restart() {
 	count = 0;
 	nextPage = 1;
 	$('#start-page').show();
@@ -119,9 +122,9 @@ function restart(){
 	$('#finish').hide();
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
 	// When the start button is clicked
-	$('#start-page button').click(function(){
+	$('#start-page button').click(function() {
 		$('#start-page').hide();
 		$('#page-1').show();
 		$('#page-2').hide();
@@ -135,28 +138,28 @@ $(document).ready(function(){
 	newGame();
 
 	// Events when next button is clicked
-	$('#page-1 button').click(function(){
+	$('#page-1 button').click(function() {
 		checkAnswer(question1);
 	});
 
-	$('#page-2 button').click(function(){
+	$('#page-2 button').click(function() {
 		checkAnswer(question2);
 	});
 
-	$('#page-3 button').click(function(){
+	$('#page-3 button').click(function() {
 		checkAnswer(question3);
 	});
 
-	$('#page-4 button').click(function(){
+	$('#page-4 button').click(function() {
 		checkAnswer(question4);
 	});
 
-	$('#page-5 button').click(function(){
+	$('#page-5 button').click(function() {
 		checkAnswer(question5);
 	});
 
 	// Event when try again is clicked
-	$('#finish button').click(function(){
+	$('#finish button').click(function() {
 		restart();
 	});
 });

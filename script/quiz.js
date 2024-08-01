@@ -34,16 +34,16 @@ var question5 = new question({
 	pageNumber: "page-5"
 });
 
-//Defining prototype
-function question(option){
+// Defining prototype
+function question(option) {
 	this.charName = option.charName;
 	this.answerOptions = option.answerOptions;
 	this.answer = option.answer;
 	this.pageNumber = option.pageNumber;
 }
 
-//Questions html template
-var genQuestion = function(x){
+// Questions HTML template
+var genQuestion = function(x) {
 	var stage = $('#questions');
 	stage.append('<div id="' + x.pageNumber + '" class="page"></div>');
 
@@ -60,36 +60,36 @@ var genQuestion = function(x){
 	questionsPage.append('<button>next</button>');
 }
 
-//variables
+// Variables
 var count = 0;
 var nextPage = 1;
 
-// calculate score
-function showScore(){
-	$('.score').append(count + " out of 5");
+// Calculate score
+function showScore() {
+	$('.score').text(count + " out of 5");
 }
 
-//checking answer
-function checkAnswer(x){
+// Checking answer
+function checkAnswer(x) {
 	var finalAnswer = $('input:checked').val();
 	var feedback = $('.page:visible .feedback');
 
-	if(finalAnswer == x.answer){
+	if (finalAnswer == x.answer) {
 		feedback.html('<p style="color: green;">Correct!</p>');
 		count++;
 	} else {
 		feedback.html('<p style="color: red;">Wrong! The correct answer is: ' + x.answerOptions[x.answer] + '</p>');
 	}
 
-	if(nextPage == 5){
-		setTimeout(function(){
+	if (nextPage == 5) {
+		setTimeout(function() {
 			$('#questions').hide();
 			$('#finish').show();
 			showScore();
 		}, 2000); // Delay to show feedback before moving to results
 	} else {
 		nextPage++;
-		setTimeout(function(){
+		setTimeout(function() {
 			$('.page').hide();
 			$('#finish').hide();
 			$('#page-' + nextPage).show();
@@ -97,17 +97,17 @@ function checkAnswer(x){
 	}
 }
 
-//create a new game and questions
-function newGame(){
-	var create1 = new genQuestion(question1);
-	var create2 = new genQuestion(question2);
-	var create3 = new genQuestion(question3);
-	var create4 = new genQuestion(question4);
-	var create5 = new genQuestion(question5);
+// Create a new game and questions
+function newGame() {
+	genQuestion(question1);
+	genQuestion(question2);
+	genQuestion(question3);
+	genQuestion(question4);
+	genQuestion(question5);
 }
 
-//restart game
-function restart(){
+// Restart game
+function restart() {
 	count = 0;
 	nextPage = 1;
 	$('#start-page').show();
@@ -122,9 +122,9 @@ function restart(){
 	$('#finish').hide();
 }
 
-$(document).ready(function(){
-	// when the start button is clicked
-	$('#start-page button').click(function(){
+$(document).ready(function() {
+	// When the start button is clicked
+	$('#start-page button').click(function() {
 		$('#start-page').hide();
 		$('#page-1').show();
 		$('#page-2').hide();
@@ -134,32 +134,32 @@ $(document).ready(function(){
 		$('#finish').hide();
 	});
 
-	//generating the questions
+	// Generating the questions
 	newGame();
 
-	//events when next button is clicked
-	$('#page-1 button').click(function(){
+	// Events when next button is clicked
+	$('#page-1 button').click(function() {
 		checkAnswer(question1);
 	});
 
-	$('#page-2 button').click(function(){
+	$('#page-2 button').click(function() {
 		checkAnswer(question2);
 	});
 
-	$('#page-3 button').click(function(){
+	$('#page-3 button').click(function() {
 		checkAnswer(question3);
 	});
 
-	$('#page-4 button').click(function(){
+	$('#page-4 button').click(function() {
 		checkAnswer(question4);
 	});
 
-	$('#page-5 button').click(function(){
+	$('#page-5 button').click(function() {
 		checkAnswer(question5);
 	});
 
-	// event when try again is clicked
-	$('#finish button').click(function(){
+	// Event when try again is clicked
+	$('#finish button').click(function() {
 		restart();
 	});
 });
